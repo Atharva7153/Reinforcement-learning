@@ -8,6 +8,7 @@ Building reinforcement learning fundamentals from scratch, step by step.
 - **Step 2 (`step2.ipynb`)**: Giving the agent memory & estimating action values using sample-average reward tracking.
 - **Step 3 (`step3.ipynb`)**: $\epsilon$-greedy exploration vs. exploitation strategy (+ 3-box reward game challenge).
 - **Step 4 (`step4.ipynb`)**: Incremental action-value update using learning rate ($\alpha$) and prediction error.
+- **Step 5 (`step5.ipynb`)**: States, episodes, transitions, and the discount factor ($\gamma$).
 
 ## Requirements
 
