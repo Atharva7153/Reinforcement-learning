@@ -18,7 +18,7 @@ def step(state, action):
     else:
         next_state = state -1
 
-    if state < 0:
+    if next_state < 0:
         next_state = 0
 
     if next_state == 3:
@@ -31,7 +31,7 @@ def step(state, action):
     return next_state, reward, done
 
 
-gamma = 0.2
+gamma = 0.9
 done = False
 state = 0
 rewards = []
