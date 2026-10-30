@@ -11,7 +11,7 @@ actions = ['left', 'right']
 
 def choose_action(state, Q, epsilon=0.1):
 
-    if random.random() < 0.1:
+    if random.random() < epsilon:
         action = random.choice(actions)
         return action
     else:
@@ -54,7 +54,7 @@ for i in range(200):
         action = choose_action(state, Q)
 
         next_state, reward, done = step(state, action)
-        rewards.append(reward)
+        # rewards.append(reward)
 
         if done:
             best_next = 0
@@ -75,3 +75,28 @@ for i in range(200):
 print("After training : ")
 for key, value in Q.items():
     print(f"{key}: left = {value['left']}, right = {value['right']}")
+
+print("------------------------------------------")
+print("")
+print("")
+
+print("After Locking an training Agent :- ")
+
+done = False
+state = 0
+while not done:
+
+    epsilon = 0
+    action = choose_action(state, Q, epsilon)
+
+    next_state, reward, done = step(state, action)
+
+    rewards.append(reward)
+
+    print("Current State : ", state)
+    print("Current Reward : ", reward)
+
+    state = next_state
+
+print("Total Rewards : ")
+print(rewards)
