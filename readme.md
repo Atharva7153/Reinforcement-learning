@@ -13,7 +13,7 @@ A hands-on journey building Reinforcement Learning fundamentals from scratch in 
 | **[Step 3](step3.ipynb)** | Policy & Balance | $\epsilon$-Greedy (Exploration vs. Exploitation) | Explore with prob $\epsilon$, else $\arg\max Q(a)$ |
 | **[Step 4](step4.ipynb)** | Incremental Learning | Learning Rate ($\alpha$) & Prediction Error | $Q(a) \leftarrow Q(a) + \alpha [R - Q(a)]$ |
 | **[Step 5](step5.ipynb)** | Markov Decision Processes | States, Episodes & Discount Factor ($\gamma$) | $G_t = \sum_{k=0}^{\infty} \gamma^k R_{t+k+1}$ |
-| **Step 6** *(WIP)* | Tabular Q-Learning | Temporal Difference & Bellman Equation | $Q(s,a) \leftarrow Q(s,a) + \alpha [R + \gamma \max_{a'} Q(s',a') - Q(s,a)]$ |
+| **[Step 6](step6.ipynb)** | Tabular Q-Learning | Temporal Difference & Bellman Equation | $Q(s,a) \leftarrow Q(s,a) + \alpha [R + \gamma \max_{a'} Q(s',a') - Q(s,a)]$ |
 
 ---
 
@@ -44,10 +44,11 @@ A hands-on journey building Reinforcement Learning fundamentals from scratch in 
 - Implemented **Discounted Return ($G_t$)** to balance immediate step costs (`-1`) with long-term goal rewards (`+10`).
 - Demonstrated why low $\gamma$ (e.g. `0.2`) makes an agent short-sighted, while high $\gamma$ (e.g. `0.9`) encourages reaching future goals.
 
-### 6. [Tabular Q-Learning (`test2.py` / `step6.ipynb`)](test2.py) *(In Progress)*
-- Implementing full **Q-learning** across multiple states.
-- Propagating future values back to earlier states using the Bellman target:
+### 6. [Tabular Q-Learning (`step6.ipynb`)](step6.ipynb)
+- Implemented full **Tabular Q-Learning** across multiple states.
+- Propagated future values back to earlier states using the Bellman target:
   $$\text{Target} = R + \gamma \max_{a'} Q(s', a')$$
+- Tested the trained agent under pure exploitation ($\epsilon = 0$), verifying it takes the optimal shortest path straight to the goal (`0 -> 1 -> 2 -> 3`).
 
 ---
 
