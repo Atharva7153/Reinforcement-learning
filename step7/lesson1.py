@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-layer = nn.Linear(2, 1)
+layer = nn.Linear(2,1)
 
 x = torch.tensor([1.0, 2.0])
 
