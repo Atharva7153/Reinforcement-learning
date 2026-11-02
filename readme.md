@@ -1,6 +1,6 @@
 # 🚀 Step-by-Step Reinforcement Learning
 
-A hands-on journey building Reinforcement Learning fundamentals from scratch in pure Python — progressing from basic Multi-Armed Bandits to 2D GridWorld Q-Learning, with the ultimate goal of landing rockets using Deep RL.
+A hands-on journey building Reinforcement Learning fundamentals from scratch — progressing from basic Multi-Armed Bandits to 2D GridWorld Q-Learning, Deep Q-Networks (PyTorch), with the ultimate goal of landing rockets using Deep RL.
 
 ---
 
@@ -15,6 +15,9 @@ A hands-on journey building Reinforcement Learning fundamentals from scratch in 
 | **[Step 5](step5.ipynb)** | Markov Decision Processes | States, Episodes & Discount Factor ($\gamma$) | $G_t = \sum_{k=0}^{\infty} \gamma^k R_{t+k+1}$ |
 | **[Step 6](step6.ipynb)** | 1D Tabular Q-Learning | Temporal Difference & Bellman Equation | $Q(s,a) \leftarrow Q(s,a) + \alpha [R + \gamma \max_{a'} Q(s',a') - Q(s,a)]$ |
 | **[Mini-Project](proj.py)** | 2D GridWorld Navigation | 2D State Space & 4-Direction Control | $(r, c) \in \{0,1,2\}^2$, Actions: `['left', 'right', 'up', 'down']` |
+| **[Step 7 - Lesson 1](step7/lesson1.py)** | PyTorch Tensors & Layers | Tensor operations & `nn.Linear` | $y = x W^T + b$ |
+| **[Step 7 - Lesson 2](step7/lesson2.ipynb)** | Neural Network Basics | MSE Loss, Optimizers (`SGD`/`Adam`), Backprop | `loss.backward()` & `optimizer.step()` |
+| **[Step 7 - Lesson 3](step7/lesson3.ipynb)** | Deep Q-Networks (DQN) | Experience Replay (`deque`) & Target Network | $\text{Loss} = \text{MSE}\big(Q(s, a), R + \gamma \max_{a'} Q_{\text{target}}(s', a')\big)$ |
 
 ---
 
@@ -61,6 +64,16 @@ A hands-on journey building Reinforcement Learning fundamentals from scratch in 
   - Boundaries: Walking out of grid bounds resets position back to `(0, 0)`.
 - Learned optimal policies where states near the goal (`(1, 2)` pointing `up` and `(2, 1)` pointing `right`) converge to high Q-values approaching `~100`.
 
+### 8. [Step 7: Deep Q-Networks (DQN) with PyTorch (`step7/`)](step7/)
+Bridging tabular RL to Deep RL by replacing lookup tables with neural networks:
+- **[Lesson 1 (`step7/lesson1.py`)](step7/lesson1.py)**: Introduction to PyTorch tensors, weights, biases, and `nn.Linear`.
+- **[Lesson 2 (`step7/lesson2.ipynb`)](step7/lesson2.ipynb)**: Building a regression network ($y = 2x$), setting up MSE loss, and performing backpropagation with `optimizer.step()`.
+- **[Lesson 3 (`step7/lesson3.ipynb`)](step7/lesson3.ipynb)**: **Full DQN Implementation on 2D GridWorld**:
+  - **DQN Architecture**: 2 hidden layers (64 neurons each, ReLU) outputting 4 Q-values from state coordinate inputs `(row, col)`.
+  - **Experience Replay Buffer (`deque`)**: Stores past transitions `(state, action, reward, next_state, done)` and breaks autocorrelation with random mini-batch sampling (batch size = 32).
+  - **Target Network (`target_net`)**: Stabilizes the Bellman targets by freezing weights and periodically syncing with `q_net` every 10 episodes.
+  - **Policy Verification**: Queries the trained neural network across all 9 tiles and executes an optimal 4-step path straight from `(0, 0)` to `(2, 2)` with total reward `+97.0`.
+
 ---
 
 ## 🛠️ How to Run
@@ -77,8 +90,11 @@ Or run standalone Python experiment scripts:
 # Run 1D Q-learning experiment
 python3 test2.py
 
-# Run 2D GridWorld project
+# Run 2D GridWorld tabular project
 python3 proj.py
+
+# Run DQN script
+python3 step7/test1.py
 ```
 
-*Zero heavy dependencies required for foundation steps — standard library Python only.*
+*Requirements: Python 3 with Jupyter and PyTorch (`torch`).*
