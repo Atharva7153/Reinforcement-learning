@@ -53,7 +53,7 @@ Y = torch.tensor([
     [150]
 ],dtype=torch.float32)
 
-for i in range(100000):
+for i in range(10000):
 
     prediction = model(X)
 
@@ -68,10 +68,13 @@ for i in range(100000):
     if i % 100 == 0:
             print(
                 f"Epoch : {i}",
-                f"Loss : {loss.item():.4f}"
+                f"Loss : {loss}"
             )
+
+print("After training : ")
 test_input = torch.tensor([[2000,4,2]], dtype=torch.float32)
 
 prediction = model(test_input)
 
 print("Prediction : ", prediction.item())
+print("Prediction : ", prediction)
