@@ -1,46 +1,58 @@
 import random
 
-class CarEnvironmen:
+class CarEnvironment:
+
     def __init__(self):
-        self.initial_velocity = random.randint(1, 15) # meter per second
-        self.distance = 100 #100 meters
-        self.buffer = 5 # 5 meters before the wall to stop
-        self.time = 0
+        self.reset()
 
     def reset(self):
-        self.initial_velocity = random.randint(1, 15) 
-        self.distance = 100 
+        self.initial_velocity = random.randint(1, 15)
+        self.distance = 100
         self.buffer = 5
         self.time = 0
+        self.distance_travelled = 0
+
+        return (self.initial_velocity, self.distance)
 
     def step(self, action):
+
+        
         if action == 'brake':
-            velocity = self.initial_velocity - 5
-            self.initial_velocity = velocity
+            self.initial_velocity -= 5
 
-        if action == "acc":
-            velocity = self.initial_velocity + 5
-            self.initial_velocity = velocity
+        elif action == 'acc':
+            self.initial_velocity += 5
 
-        if action == 'maintain':
-            velocity = self.initial_velocity
-            self.initial_velocity = velocity
+        elif action == 'maintain':
+            pass
 
-        if self.initial_velocity < 0 :
-            self.initial_velocity = 0
-            velocity = 0
+        else:
+            raise ValueError("Invalid action")
+
+
+        self.initial_velocity = max(0, self.initial_velocity)
+
+        velocity = self.initial_velocity
+
+        
+        self.distance_travelled = velocity
+        self.distance -= self.distance_travelled
 
         self.time += 1
 
-        self.distance = velocity * self.time
+        if self.distance <= 0:
+            reward = -100
+            done = True
 
-        #winning condition
-
-        if(self.distance <= self.buffer and self.initial_velocity == 0):
+        elif self.distance <= self.buffer and velocity == 0:
             reward = 100
             done = True
+
+        elif velocity == 0 and self.distance > self.buffer:
+            reward = -50
+            done = True
+
         else:
             reward = -1
             done = False
-
-
+        return reward, (velocity, self.distance), done
