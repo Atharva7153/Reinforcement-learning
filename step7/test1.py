@@ -132,8 +132,8 @@ for r in range(3):
             continue
         with torch.no_grad():
             st = torch.tensor([r, c], dtype=torch.float32)
-            best_a = torch.argmax(q_net(st)).item()
+            best_a = torch.argmax(q_net(st)).item() 
             row_actions.append(action_names[best_a])
     grid_policy.append(row_actions)
 for row in grid_policy:
-    print(row)
+    print(row) 
