@@ -1,3 +1,4 @@
+
 import random
 
 class CarEnvironment:
@@ -16,7 +17,6 @@ class CarEnvironment:
 
     def step(self, action):
 
-        
         if action == 'brake':
             self.initial_velocity -= 5
 
@@ -29,12 +29,10 @@ class CarEnvironment:
         else:
             raise ValueError("Invalid action")
 
-
         self.initial_velocity = max(0, self.initial_velocity)
 
         velocity = self.initial_velocity
 
-        
         self.distance_travelled = velocity
         self.distance -= self.distance_travelled
 
@@ -55,4 +53,5 @@ class CarEnvironment:
         else:
             reward = -1
             done = False
+
         return reward, (velocity, self.distance), done
